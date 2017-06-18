@@ -26,7 +26,7 @@ function Rain(x, y) {
     }
 
     this.hitsWall = function(wall) {
-        var distance = dist(this.x, this.y, wall.x + 100, wall.y + 70);
+        var distance = dist(this.x, this.y, wall.x + 90, wall.y + 65);
         if (distance <= this.radius + 70) {
             return true;
         } else {
