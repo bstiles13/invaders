@@ -1,12 +1,13 @@
 function Fighter() {
     this.x = width/2;
+    this.y = height - 100;
+    this.radius = 20;
     img1 = loadImage("../app/xwing.png"); 
     this.direction = 0;
 
 
     this.show = function() {
-        image(img1, this.x, height - 100, img1.width/8, img1.height/8);
-
+        image(img1, this.x, this.y, this.radius * 3, this.radius * 3);
     }
 
     this.set = function (dir) {
