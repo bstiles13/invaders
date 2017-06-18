@@ -6,8 +6,8 @@
         crossorigin="anonymous"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.js'></script>
-
-    <!--<script src='./app/app.js'></script>-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
     <script src="./app/stars.js"></script>
     <script src="./app/fighter.js"></script>
     <script src="./app/enemy.js"></script>
@@ -16,6 +16,8 @@
     <script src="./app/rain.js"></script>
     <script src="./app/score.js"></script>
     <script src="./app/life.js"></script>
+    <script src="./app/app.js"></script>
+
 
     <style>
         html,
@@ -26,27 +28,49 @@
             background-color: black;
         }
 
-        #container {
-            height: 100%;
-            width: 100%;
-            top: 0;
-            left: 0;
-            position: absolute;
-            z-index: -1;
-        }
         canvas {
             border: 1px solid white;
+        }
+
+        button {
+            color: white;
+            background-color: red;
+        }
+
+        .container {
+            width: 100%;
+            padding: 30px 0;
+            display: flex;
+            justify-content: center;
         }
     </style>
 </head>
 
 <body>
-    test
-    <audio autoplay>
+    <nav>
+        <div class="nav-wrapper grey darken-3">
+            <a href="#!" class="brand-logo">INVADERS</a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="#">Scores</a></li>
+                <li><a href="#">Sign In</a></li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+                <li><a href="#">Scores</a></li>
+                <li><a href="#">Sign In</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class='container'>
+        <a class="play waves-effect waves-light btn-large"><i class="material-icons right">power_settings_new
+</i>Play</a>
+
+        <div id="canvas"></div>
+    </div>
+    <!--<audio autoplay>
         <source src="app/resistance.mp3" type="audio/mpeg"> Your browser does not support the audio element.
-    </audio>
-    <!--<div id='container'></div>-->
-        <script src="./app/sketch.js"></script>
+    </audio>-->
+    <script src="./app/sketch.js"></script>
 
 </body>
 

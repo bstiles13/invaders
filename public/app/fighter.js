@@ -15,7 +15,7 @@ function Fighter() {
     } 
 
     this.move = function() {
-        this.x += this.direction * 3;
+        this.x += this.direction * 4;
     }
 }
 
