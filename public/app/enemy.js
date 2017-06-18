@@ -3,7 +3,7 @@ function Enemy(x, y) {
       this.x = x;
       this.y = y;
       this.radius = 20;
-      this.where = 1
+      this.where = 0.5;
 
     this.show = function() {
           image(img, this.x, this.y, this.radius * 2, this.radius * 2);

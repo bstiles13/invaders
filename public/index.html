@@ -2,23 +2,30 @@
 
 <head>
     <title>Invaders</title>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.js'></script>
+
     <!--<script src='./app/app.js'></script>-->
-    <script src="./app/sketch.js"></script>
+    <script src="./app/stars.js"></script>
     <script src="./app/fighter.js"></script>
     <script src="./app/enemy.js"></script>
+    <script src="./app/wall.js"></script>
     <script src="./app/missile.js"></script>
     <script src="./app/rain.js"></script>
     <script src="./app/score.js"></script>
     <script src="./app/life.js"></script>
 
     <style>
-        html, body {
+        html,
+        body {
             margin: 0;
             height: 100%;
             width: 100%;
+            background-color: black;
         }
+
         #container {
             height: 100%;
             width: 100%;
@@ -27,11 +34,20 @@
             position: absolute;
             z-index: -1;
         }
+        canvas {
+            border: 1px solid white;
+        }
     </style>
 </head>
 
 <body>
+    test
+    <audio autoplay>
+        <source src="app/resistance.mp3" type="audio/mpeg"> Your browser does not support the audio element.
+    </audio>
     <!--<div id='container'></div>-->
+        <script src="./app/sketch.js"></script>
+
 </body>
 
 </html>

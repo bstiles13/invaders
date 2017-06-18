@@ -4,14 +4,26 @@ var img;
 var score;
 var fighter;
 var rain;
+var stars = [];
 var enemies = [];
+var walls = [];
 var missiles = [];
 var rainArray = [];
 var gameOver = {};
 
+function preload() {
+ mySound = loadSound("../app/shootsound.mp3");
+ mySound1 = loadSound("../app/shootsound1.mp3");
+
+}
+
 
 function setup() {
   createCanvas(900, 600);
+
+  for (var i = 0; i < 100; i++) {
+    stars[i] = new Star();
+  }
 
   fighter = new Fighter();
   score = new Score();
@@ -31,6 +43,9 @@ function setup() {
       enemies[i] = new Enemy((i - 22) * 60 + 80, 160);
     }
   }
+  for (var i = 0; i < 3; i++) {
+     walls[i] = new Wall(i * 300 + 20, height - 200);
+  }
 }
 
 function draw() {
@@ -40,6 +55,9 @@ function draw() {
   // ellipse(50, 50, 80, 80);
   // image(img, 0, height/2, img.width/2, img.height/2);
   // rect(width/2, height - 20, 20, 20);
+    for (var i = 0; i < stars.length; i++) {
+      stars[i].show();
+    }
     lives > 0 ? true : gameOver.show();
     score.show();
     life.show(lives);
@@ -48,7 +66,7 @@ function draw() {
     for (var i = 0; i < enemies.length; i++) {
       enemies[i].show();
       lives > 0 ? enemies[i].move() : false ;
-      if (enemies[i].x >= width || enemies[i].x <= 0) {
+      if (enemies[i].x + (enemies[i].radius * 2) >= width || enemies[i].x <= 0) {
         edge = true;
       }
     }
@@ -61,6 +79,7 @@ function draw() {
 
     for (var i = 0; i < missiles.length; i++) {
       missiles[i].show();
+      // mySound1.play();
       lives > 0 ? missiles[i].move() : false;
       for (var z = enemies.length - 1; z >= 0; z--) {
         if (missiles[i].hits(enemies[z])) {
@@ -69,11 +88,20 @@ function draw() {
           score.count += 20;
         }
       }
+      for (var z = walls.length - 1; z >= 0; z--) {
+        if (missiles[i].hitsWall(walls[z])) {
+          missiles[i].kill();
+        }
+      }
     }
 
     for (var i = 0; i < missiles.length; i++) {
       if (missiles[i].toggle === true) {
-        missiles.splice(i, 1);
+        if (i % 2 === 0) {
+          missiles.splice(i, 2);
+        } else {
+          missiles.splice(i-1, 1);
+        }
       }
     }
 
@@ -86,12 +114,21 @@ function draw() {
         rainArray[i].kill();
         lives --;
       }
+      for (var z = walls.length - 1; z >= 0; z--) {
+        if (rainArray[i].hitsWall(walls[z])) {
+          rainArray[i].kill();
+        }
+      }
     }
 
     for (var i = 0; i < rainArray.length; i++) {
       if (rainArray[i].toggle === true) {
         rainArray.splice(i, 1);
       }
+    }
+
+    for (var i = 0; i < walls.length; i++) {
+      walls[i].show();
     }
 
 }
@@ -114,8 +151,11 @@ function keyPressed() {
       break;
     case 32:
       console.log('yes');
-      var missile = new Missile(fighter.x + 40, fighter.y);
+      var missile = new Missile(fighter.x + 0, fighter.y, 1);
       missiles.push(missile);
+      var missile = new Missile(fighter.x + 55, fighter.y, -1);
+      missiles.push(missile);
+      mySound.play();
       break;
   }
 }

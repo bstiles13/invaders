@@ -1,6 +1,6 @@
 function Fighter() {
     this.x = width/2;
-    this.y = height - 100;
+    this.y = height - 60;
     this.radius = 20;
     img1 = loadImage("../app/xwing.png"); 
     this.direction = 0;

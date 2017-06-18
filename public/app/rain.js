@@ -16,14 +16,20 @@ function Rain(x, y) {
     }
 
     this.hits = function(fighter) {
-        var distance = dist(this.x, this.y, fighter.x + 10, fighter.y);
-        if (distance <= this.radius + fighter.radius) {
+        var distance = dist(this.x, this.y, fighter.x + fighter.radius, fighter.y + 10);
+        if (distance <= fighter.radius + 15) {
             console.log('hit');
             return true;
         } else {
-            // console.log(fighter.x);
-            // console.log(d);
-            // console.log('no');
+            return false;
+        }
+    }
+
+    this.hitsWall = function(wall) {
+        var distance = dist(this.x, this.y, wall.x + 100, wall.y + 70);
+        if (distance <= this.radius + 70) {
+            return true;
+        } else {
             return false;
         }
     }

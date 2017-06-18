@@ -1,4 +1,3 @@
-$(document).ready(function() {
 /*
 	Starfield lets you take a div and turn it into a starfield.
 */
@@ -102,4 +101,3 @@ function Star(x, y, size, velocity) {
 			starfield.start();
 		}
 
-        })
