@@ -38,15 +38,15 @@ function startSetup() {
 
   for (var i = 0; i < 33; i++) {
     if (i < 11) {
-      enemies[i] = new Enemy(i * 60 + 80, 40);
+      enemies[i] = new Enemy(i * 50 + 80, 40);
     } else if (i < 22) {
-      enemies[i] = new Enemy((i - 11) * 60 + 80, 100);
+      enemies[i] = new Enemy((i - 11) * 50 + 80, 100);
     } else if (i < 33) {
-      enemies[i] = new Enemy((i - 22) * 60 + 80, 160);
+      enemies[i] = new Enemy((i - 22) * 50 + 80, 160);
     }
   }
   for (var i = 0; i < 3; i++) {
-    walls[i] = new Wall(i * 300 + 20, height - 200);
+    walls[i] = new Wall(i * 280 + 30, height - 200);
   }
 }
 
