@@ -1,0 +1,145 @@
+* {
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+	font-family: 'Mada', sans-serif;
+	background: radial-gradient(rgb(30, 30, 30) 30%, rgb(10, 10, 10) 70%);
+	background-attachment: fixed;
+	color: rgb(0, 255, 255);
+}
+
+.nav {
+	background-color: black;
+	height: 3.9rem;
+	/*padding-left: 15px;
+	padding-right: 20px;*/
+}
+
+.nav-item > * {
+	color: white;
+}
+
+.nav-menu a {
+	color: rgb(0, 255, 255);
+}
+
+.name {
+	color: rgb(0, 255, 255);
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.nav-left > .nav-item {
+	display: inline-block;
+}
+
+.title {
+	font-size: 12px;
+	text-align: left;
+}
+
+.container {
+	padding: 0 100px 50px 100px;
+}
+
+.headline {
+	width: 100%;
+	font-size: 35px;
+	padding: 20px 0;
+	font-family: 'Indie Flower', cursive;
+}
+
+.headline span {
+	color: dimgray;
+}
+
+.summary {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.about {
+	flex: 2;
+	padding: 20px;
+}
+
+.about p {
+	border-top: 1px solid rgba(255, 255, 255, 0.5);
+	padding-top: 20px;
+	color: white;
+}
+
+.about a {
+	color: rgb(0, 255, 255);
+	text-decoration: none;
+}
+
+.skills {
+	flex: 1;
+	padding: 20px;
+}
+
+h2 {
+	margin-bottom: 8px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+ul {
+	border-top: 1px solid rgba(255, 255, 255, 0.5);
+	padding-top: 20px;
+	columns: 2;
+	color: white;
+}
+
+
+/*PORTFOLIO PAGE*/
+
+.portfolio {
+	width: 85%;
+	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.portfolio:after {
+  content: "";
+  flex: auto;
+}
+
+.portfolio h2 {
+	width: 100%;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+	padding-bottom: 10px;
+}
+
+.card {
+	width: 250px;
+	background-color: white;
+	margin: 20px;
+	border-radius: 5px;
+}
+
+.card-footer a {
+	color: dimgray;
+}
+
+/*CONTACT PAGE*/
+
+.contact {
+	width: 70%;
+	margin: 0 auto;
+	padding: 20px 0;
+}
+
+.label {
+	color: white;
+}
+
+.submit {
+	color: rgb(0, 255, 255);
+	background-color: black;
+
+}

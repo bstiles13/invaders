@@ -1,4 +1,4 @@
-var playing = false;
+var playing = true;
 var life;
 var lives = 3;
 var img;
@@ -13,8 +13,7 @@ var rainArray = [];
 var gameOver = {};
 
 function preload() {
-  mySound = loadSound("../app/shootsound.mp3");
-  mySound1 = loadSound("../app/shootsound1.mp3");
+  mySound = loadSound("./assets/javascript/shootsound.mp3");
 
 }
 
@@ -57,9 +56,9 @@ function startDraw() {
   // ellipse(50, 50, 80, 80);
   // image(img, 0, height/2, img.width/2, img.height/2);
   // rect(width/2, height - 20, 20, 20);
-  for (var i = 0; i < stars.length; i++) {
-    stars[i].show();
-  }
+//   for (var i = 0; i < stars.length; i++) {
+//     stars[i].show();
+//   }
   lives > 0 ? true : gameOver.show();
   score.show();
   life.show(lives);

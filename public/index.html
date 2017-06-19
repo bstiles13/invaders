@@ -1,6 +1,8 @@
-<html>
-
-<head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <html lang="en">
     <title>Invaders</title>
     <link href="https://fonts.googleapis.com/css?family=Bowlby+One" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -9,16 +11,16 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.js'></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
-    <script src="./app/stars.js"></script>
-    <script src="./app/fighter.js"></script>
-    <script src="./app/enemy.js"></script>
-    <script src="./app/wall.js"></script>
-    <script src="./app/missile.js"></script>
-    <script src="./app/rain.js"></script>
-    <script src="./app/score.js"></script>
-    <script src="./app/life.js"></script>
-    <script src="./app/app.js"></script>
-
+    <script src="./assets/javascript/stars.js"></script>
+    <script src="./assets/javascript/fighter.js"></script>
+    <script src="./assets/javascript/enemy.js"></script>
+    <script src="./assets/javascript/wall.js"></script>
+    <script src="./assets/javascript/missile.js"></script>
+    <script src="./assets/javascript/rain.js"></script>
+    <script src="./assets/javascript/score.js"></script>
+    <script src="./assets/javascript/life.js"></script>
+    <script src="./assets/javascript/app.js"></script>
+    <script src="./assets/javascript/sketch.js"></script>
     <style>
         html,
         body {
@@ -52,34 +54,9 @@
             justify-content: center;
         }
     </style>
-</head>
-
-<body>
-    <nav>
-        <div class="nav-wrapper grey darken-3">
-            <a href="#!" class="brand-logo center">INVADERS</a>
-            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-            <ul class="right hide-on-med-and-down">
-                <li><a href="#">Scores</a></li>
-                <li><a href="#">Sign In</a></li>
-            </ul>
-            <ul class="side-nav" id="mobile-demo">
-                <li><a href="#">Scores</a></li>
-                <li><a href="#">Sign In</a></li>
-            </ul>
-        </div>
-    </nav>
-    <div class='container'>
-        <a class="play waves-effect waves-light btn-large"><i class="material-icons right">power_settings_new
-</i>Play</a>
-
-        <div id="canvas"></div>
-    </div>
-    <audio autoplay>
-        <source src="app/resistance.mp3" type="audio/mpeg"> Your browser does not support the audio element.
-    </audio>
-    <script src="./app/sketch.js"></script>
-
-</body>
-
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="bundle.js"></script>
+  </body>
 </html>

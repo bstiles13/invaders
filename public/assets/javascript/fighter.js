@@ -2,7 +2,7 @@ function Fighter() {
     this.x = width/2;
     this.y = height - 60;
     this.radius = 20;
-    img1 = loadImage("../app/xwing.png"); 
+    img1 = loadImage("./assets/javascript/xwing.png"); 
     this.direction = 0;
 
 

@@ -1,5 +1,5 @@
 function Enemy(x, y) {
-      img = loadImage("../app/tie.png");
+      img = loadImage("./assets/javascript/tie.png");
       this.x = x;
       this.y = y;
       this.radius = 20;
