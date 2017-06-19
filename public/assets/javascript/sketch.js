@@ -14,6 +14,8 @@ var gameOver = {};
 
 function preload() {
   mySound = loadSound("./assets/javascript/shootsound.mp3");
+  mySound1 = loadSound("./assets/javascript/explode.mp3");
+
 
 }
 
@@ -113,6 +115,7 @@ function startDraw() {
     if (rainArray[i].hits(fighter)) {
       console.log('hit');
       rainArray[i].kill();
+      mySound1.play();
       lives--;
     }
     for (var z = walls.length - 1; z >= 0; z--) {
