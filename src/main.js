@@ -3,15 +3,15 @@ import VueRouter from 'vue-router'
 import App from './App.vue'
 import Nav from './Nav.vue'
 import Home from './Home.vue'
-import Portfolio from './Portfolio.vue'
-import Contact from './Contact.vue'
+import Scores from './Scores.vue'
+// import Login from './Login.vue'
 
 Vue.use(VueRouter);
 
 var routes = [
   { path: '/', component: Home },
-  { path: '/portfolio', component: Portfolio },
-  { path: '/contact', component: Contact }
+  { path: '/scores', component: Scores },
+  // { path: '/login', component: Login }
 ];
 
 var router = new VueRouter({

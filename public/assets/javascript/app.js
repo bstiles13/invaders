@@ -7,4 +7,9 @@ $(document).ready(function() {
         $('#canvas').show();
         playing = true;
     })
+
+    // $(document).on('click', '.test', function() {
+    //     console.log('something');
+    //     console.log(user);
+    // })
 })

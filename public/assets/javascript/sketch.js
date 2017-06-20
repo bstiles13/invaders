@@ -1,4 +1,4 @@
-var playing = true;
+var playing = false;
 var life;
 var lives = 3;
 var img;
@@ -15,14 +15,20 @@ var gameOver = {};
 function preload() {
   mySound = loadSound("./assets/javascript/shootsound.mp3");
   mySound1 = loadSound("./assets/javascript/explode.mp3");
+}
 
+function setup() {
+  var canvas = createCanvas(800, 600);
+  canvas.parent('canvas');
+  startSetup();
+}
 
+function draw() {
+  enemies.length <= 0 ? startSetup() : false;
+  playing ? startDraw() : false;
 }
 
 function startSetup() {
-  var canvas = createCanvas(800, 600);
-  canvas.parent('canvas');
-
 
   for (var i = 0; i < 100; i++) {
     stars[i] = new Star();
@@ -137,18 +143,6 @@ function startDraw() {
 
 }
 
-function setup() {
-  startSetup();
-
-}
-
-
-
-function draw() {
-  playing ? startDraw() : false;
-
-}
-
 function keyReleased() {
   if (keyCode != 32) {
     fighter.set(0);
@@ -186,6 +180,6 @@ function letItRain() {
 }
 
 setInterval(function () {
-  lives > 0 ? letItRain() : false;
+  lives > 0 && playing ? letItRain() : false;
 
 }, 500);
