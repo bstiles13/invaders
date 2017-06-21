@@ -11,6 +11,7 @@ var walls = [];
 var missiles = [];
 var rainArray = [];
 var gameOver = {};
+var countdown;
 
 function preload() {
   mySound = loadSound("./assets/javascript/shootsound.mp3");
@@ -18,7 +19,7 @@ function preload() {
 }
 
 function setup() {
-  var canvas = createCanvas(800, 600);
+  var canvas = createCanvas(780, 580);
   canvas.parent('canvas');
   startSetup();
 }
@@ -33,15 +34,13 @@ function startSetup() {
   for (var i = 0; i < 100; i++) {
     stars[i] = new Star();
   }
-
+  
+  countdown = new Countdown();
+  // countdown.startCount();
   fighter = new Fighter();
   score = new Score();
   life = new Life();
-  gameOver = {
-    show: function () {
-      text('GAME OVER', width / 2, height / 2, 100, 100);
-    }
-  };
+  gameOver = new GameOver();
 
   for (var i = 0; i < 33; i++) {
     if (i < 11) {
@@ -68,6 +67,7 @@ function startDraw() {
 //     stars[i].show();
 //   }
   lives > 0 ? true : gameOver.show();
+  countdown.show();
   score.show();
   life.show(lives);
   fighter.show();
@@ -92,25 +92,31 @@ function startDraw() {
     lives > 0 ? missiles[i].move() : false;
     for (var z = enemies.length - 1; z >= 0; z--) {
       if (missiles[i].hits(enemies[z])) {
-        missiles[i].kill();
+        missiles[i].killEnemy();
         enemies.splice(z, 1);
         score.count += 20;
       }
     }
     for (var z = walls.length - 1; z >= 0; z--) {
       if (missiles[i].hitsWall(walls[z])) {
-        missiles[i].kill();
+        missiles[i].killWall();
       }
     }
   }
 
   for (var i = 0; i < missiles.length; i++) {
-    if (missiles[i].toggle === true) {
+    if (missiles[i].toggleEnemy === true) {
       if (i % 2 === 0) {
         missiles.splice(i, 2);
       } else {
         missiles.splice(i - 1, 1);
       }
+    }
+  }
+
+  for (var i = 0; i < missiles.length; i++) {
+    if (missiles[i].toggleWall === true) {
+      missiles.splice(i, 1);
     }
   }
 
@@ -183,3 +189,7 @@ setInterval(function () {
   lives > 0 && playing ? letItRain() : false;
 
 }, 500);
+
+setInterval(function () {
+  countdown.count > 0 ? countdown.count-- : false;
+}, 1000);

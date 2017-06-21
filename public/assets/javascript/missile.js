@@ -2,7 +2,8 @@ function Missile(x, y, focus) {
     this.x = x;
     this.y = y;
     this.radius = 15;
-    this.toggle = false;
+    this.toggleEnemy = false;
+    this.toggleWall = false;
 
     this.show = function() {
         fill(0, 255, 255);
@@ -14,8 +15,12 @@ function Missile(x, y, focus) {
         this.x = this.x + focus/3;
     }
 
-    this.kill = function() {
-        this.toggle = true;
+    this.killEnemy = function() {
+        this.toggleEnemy = true;
+    }
+
+    this.killWall = function() {
+        this.toggleWall = true;
     }
 
     this.hits = function(enemy) {

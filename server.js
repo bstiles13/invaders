@@ -5,6 +5,7 @@ var path = require("path");
 var mongoose = require('mongoose');
 var session = require('express-session');
 var passport = require('passport');
+// var axios = require('axios');
 var activeUser = {};
 
 
@@ -30,6 +31,7 @@ mongoose.connect(db, function(error) {
   }
 });
 var User = require('./models/user');
+var Score = require('./models/score');
 
 app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
 
@@ -37,12 +39,39 @@ app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { successRedirect: '/',
                                       failureRedirect: '/fail' }));
 
-app.get("/test", function(req, res) {
-  console.log(req.user);
-  console.log(activeUser);
+app.get('/logout', function(req, res) {
+        activeUser = {};
+        req.logout(); 
+        res.redirect('/');
+    });
+
+app.post('/test', function(req, res) {
+  console.log(req.body);
+  res.send('did something');
+})
+
+app.get("/confirm", function(req, res) {
+  res.json(activeUser);
 });
 
-app.get("/", function(req, res) {
+app.post("/submit", function(req, res) {
+  console.log("ACTIVE USER: " + activeUser);
+  console.log("BODY: " + req.body);
+  var score = req.body.score;
+  Score.create({ user: activeUser.email, score: score }, function (err, small) {
+  if (err) return handleError(err);
+    res.json(req.body);
+})
+});
+
+app.get("/getscores", function(req, res) {
+  Score.find({ }, function (err, docs) {
+    console.log(docs);
+  	res.send(docs);
+		});
+});
+
+app.get("*", function(req, res) {
   res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 

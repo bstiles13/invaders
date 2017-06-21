@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
     <script src="./assets/javascript/stars.js"></script>
+    <script src="./assets/javascript/countdown.js"></script>
     <script src="./assets/javascript/fighter.js"></script>
     <script src="./assets/javascript/enemy.js"></script>
     <script src="./assets/javascript/wall.js"></script>
@@ -19,6 +20,7 @@
     <script src="./assets/javascript/rain.js"></script>
     <script src="./assets/javascript/score.js"></script>
     <script src="./assets/javascript/life.js"></script>
+    <script src="./assets/javascript/gameover.js"></script>
     <script src="./assets/javascript/app.js"></script>
     <script src="./assets/javascript/sketch.js"></script>
     <style>
@@ -27,7 +29,11 @@
             margin: 0;
             height: 100%;
             width: 100%;
-            background-color: black;
+            /*background-color: black;*/
+            background-image: url('./assets/javascript/background1.jpg');
+            background-size: cover;
+            background-position: 0px -350px;
+            background-attachment: fixed;
         }
 
         .nav-wrapper {
@@ -52,6 +58,7 @@
             padding: 30px 0;
             display: flex;
             justify-content: center;
+            position: relative;
         }
     </style>
   </head>
