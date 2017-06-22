@@ -33,7 +33,7 @@ function Missile(x, y, focus) {
     }
 
     this.hitsWall = function(wall) {
-        var distance = dist(this.x, this.y, wall.x + 75, wall.y);
+        var distance = dist(this.x, this.y, wall.x + 75, wall.y - 40);
         if (distance <= this.radius + 70) {
             return true;
         } else {

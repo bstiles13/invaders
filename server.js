@@ -58,18 +58,68 @@ app.post("/submit", function(req, res) {
   console.log("ACTIVE USER: " + activeUser);
   console.log("BODY: " + req.body);
   var score = req.body.score;
-  Score.create({ user: activeUser.email, score: score }, function (err, small) {
+  Score.create({ user: activeUser.username, score: score }, function (err, small) {
   if (err) return handleError(err);
     res.json(req.body);
 })
 });
 
 app.get("/getscores", function(req, res) {
-  Score.find({ }, function (err, docs) {
+  Score.find().sort({ score: -1 }).limit(15).exec(function(err, docs){
     console.log(docs);
-  	res.send(docs);
+  	res.json(docs);
 		});
 });
+
+app.get("/myscores", function(req, res) {
+  Score.find({user: activeUser.username}).sort({ score: -1 }).limit(15).exec(function(err, docs){
+    console.log('MY SCORES: ' + docs);
+  	res.json(docs);
+		});
+});
+
+app.get("/myfriends", function(req, res) {
+       User.find({username: activeUser.username}, function(err, data) {
+
+          console.log('all: ' + data);
+          console.log('username: ' + data[0].username);
+          console.log('friends: ' + data[0].friends);
+         
+          Score.find({
+              'user': { $in: data[0].friends}
+          }).sort({ score: -1 }).limit(15).exec(function(err, scores){
+              console.log(scores);
+              res.json(scores);
+          });
+       })
+});
+
+app.post('/addfriend', function(req, res) {
+  console.log(req.body.friend);
+  User.find({username: req.body.friend}).exec(function(err, docs){
+    if (err) {
+      res.json({status: "error"});
+    } else if (docs.length > 0) {
+    console.log(docs);
+    console.log('find');
+    User.update({username: activeUser.username}, { $push: { friends: req.body.friend}}, function(err, result) {
+       User.find({username: activeUser.username}, function(err, data) {
+
+          console.log('all: ' + data);
+          console.log('username: ' + data[0].username);
+          console.log('friends: ' + data[0].friends);
+         
+          Score.find({
+              'user': { $in: data[0].friends}
+          }).sort({ score: -1 }).limit(15).exec(function(err, scores){
+              console.log(scores);
+              res.json(scores);
+          });
+       })
+    })
+    }
+  });
+})
 
 app.get("*", function(req, res) {
   res.sendFile(path.join(__dirname, "./public/index.html"));
@@ -125,6 +175,7 @@ passport.use(new FacebookStrategy({
             newUser.token = accessToken;
             newUser.name = profile.name.givenName + ' ' + profile.name.familyName;
             newUser.email = profile.emails[0].value;
+            newUser.username = profile.emails[0].value.split("@", 1);
 
             newUser.save(function(err){
               if(err)
