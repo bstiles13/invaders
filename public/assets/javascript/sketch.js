@@ -72,7 +72,7 @@ function startSetup() {
     stars[i] = new Star();
   }
   
-  countdown = new Countdown();
+  countdown = new Countdown(level);
   fighter = new Fighter();
   scorebox = new Scorebox(score);
   life = new Life();
@@ -182,8 +182,15 @@ function drawMovement() {
     }
     for (var z = walls.length - 1; z >= 0; z--) {
       if (volleyArray[i].hitsWall(walls[z])) {
+        walls[z].changeImage();
         volleyArray[i].kill();
       }
+    }
+  }
+
+  for (var i = 0; i < walls.length; i++) {
+    if (walls[i].destroy === true) {
+      walls.splice(i, 1);
     }
   }
 
@@ -228,7 +235,7 @@ function keyPressed() {
 function letItVolley() {
   if (enemies.length > 0 && countdown.count <= 0) {
     var random = parseInt(Math.floor(Math.random() * (enemies.length)));
-    var volley = new Volley(enemies[random].x, enemies[random].y);
+    var volley = new Volley(enemies[random].x + enemies[random].radius, enemies[random].y + 5);
     // console.log(volley);
     volleyArray.push(volley);
   }
