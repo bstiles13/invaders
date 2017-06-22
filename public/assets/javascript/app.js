@@ -4,9 +4,9 @@ $(document).ready(function() {
     // console.log(lives);
     // console.log(playing);
     var newScore;
-    console.log(localStorage.getItem("score"));
+    // console.log(localStorage.getItem("score"));
 
-    if (localStorage.getItem("score") === 0 || localStorage.getItem("score") === "0") {
+    if (localStorage.getItem("score") === 0 || localStorage.getItem("score") === "0" || localStorage.getItem("score") === null || localStorage.getItem("score") === undefined) {
         $('#canvas').hide();
         $('.results').hide();
     } else {
