@@ -1,17 +1,46 @@
 var playing = false;
-var life;
 var lives = 3;
+var edge = false;
+var alive = true;
+var score = 0;
+var level = 1;
+var levels = [
+  {
+    speed: 0.5,
+    interval: 500
+  },
+  {
+    speed: 0.7,
+    interval: 700
+  },
+  {
+    speed: 0.9,
+    interval: 800
+  },
+  {
+    speed: 1.1,
+    interval: 900
+  },
+  {
+    speed: 1.3,
+    interval: 1000
+  }
+]
+
+//Canvas Components
+var countdown;
+var life;
+var scorebox;
 var img;
-var score;
 var fighter;
-var rain;
+var volley;
 var stars = [];
 var enemies = [];
 var walls = [];
 var missiles = [];
-var rainArray = [];
+var volleyArray = [];
 var gameOver = {};
-var countdown;
+
 
 function preload() {
   mySound = loadSound("./assets/javascript/shootsound.mp3");
@@ -25,8 +54,16 @@ function setup() {
 }
 
 function draw() {
-  enemies.length <= 0 ? startSetup() : false;
-  playing ? startDraw() : false;
+  background(0);
+  textSize(15);
+  fill(255, 254, 247);
+  for (var i = 0; i < stars.length; i++) {
+    stars[i].show();
+  }
+  enemies.length <= 0 ? (missiles = [], level++, startSetup()) : false;
+  playing ? drawObjects(drawMovement) : false;
+  // countdown.count === 0 ? drawMovement() : false;
+  // playing ? startDraw2() : false;
 }
 
 function startSetup() {
@@ -36,45 +73,59 @@ function startSetup() {
   }
   
   countdown = new Countdown();
-  // countdown.startCount();
   fighter = new Fighter();
-  score = new Score();
+  scorebox = new Scorebox(score);
   life = new Life();
   gameOver = new GameOver();
 
   for (var i = 0; i < 33; i++) {
     if (i < 11) {
-      enemies[i] = new Enemy(i * 50 + 80, 40);
+      enemies[i] = new Enemy(i * 50 + 80, 40, levels[level - 1].speed);
     } else if (i < 22) {
-      enemies[i] = new Enemy((i - 11) * 50 + 80, 100);
+      enemies[i] = new Enemy((i - 11) * 50 + 80, 100, levels[level - 1].speed);
     } else if (i < 33) {
-      enemies[i] = new Enemy((i - 22) * 50 + 80, 160);
+      enemies[i] = new Enemy((i - 22) * 50 + 80, 160, levels[level - 1].speed);
     }
   }
   for (var i = 0; i < 3; i++) {
-    walls[i] = new Wall(i * 280 + 30, height - 200);
+    walls[i] = new Wall(i * 240 + 80, height - 200);
   }
 }
 
-function startDraw() {
-    background(0);
-  var edge = false;
+function drawObjects(func) {
+
+  edge = false;
+  lives > 0 ? true : gameOver.show();
+  if (countdown.view) {
+    countdown.show();
+  };
+  scorebox.show();
+  life.show(lives);
+  fighter.show();
+
+  for (var i = 0; i < enemies.length; i++) {
+    enemies[i].show();
+  }
+
+  for (var i = 0; i < walls.length; i++) {
+    walls[i].show();
+  }
+
+  func && alive && countdown.view === false ? func() : false;
+}
+
+
+function drawMovement() {
+
 
   // ellipse(50, 50, 80, 80);
   // image(img, 0, height/2, img.width/2, img.height/2);
   // rect(width/2, height - 20, 20, 20);
-//   for (var i = 0; i < stars.length; i++) {
-//     stars[i].show();
-//   }
-  lives > 0 ? true : gameOver.show();
-  countdown.show();
-  score.show();
-  life.show(lives);
-  fighter.show();
+
   fighter.move();
+
   for (var i = 0; i < enemies.length; i++) {
-    enemies[i].show();
-    lives > 0 ? enemies[i].move() : false;
+    enemies[i].move();
     if (enemies[i].x + (enemies[i].radius * 2) >= width || enemies[i].x <= 0) {
       edge = true;
     }
@@ -88,13 +139,13 @@ function startDraw() {
 
   for (var i = 0; i < missiles.length; i++) {
     missiles[i].show();
-    // mySound1.play();
-    lives > 0 ? missiles[i].move() : false;
+    missiles[i].move();
     for (var z = enemies.length - 1; z >= 0; z--) {
       if (missiles[i].hits(enemies[z])) {
         missiles[i].killEnemy();
         enemies.splice(z, 1);
-        score.count += 20;
+        score += 20;
+        scorebox.updateScore(score);
       }
     }
     for (var z = walls.length - 1; z >= 0; z--) {
@@ -120,32 +171,29 @@ function startDraw() {
     }
   }
 
-  for (var i = 0; i < rainArray.length; i++) {
-    rainArray[i].show();
-    lives > 0 ? rainArray[i].move() : false;
-    // console.log(fighter);
-    if (rainArray[i].hits(fighter)) {
+  for (var i = 0; i < volleyArray.length; i++) {
+    volleyArray[i].show();
+    volleyArray[i].move();
+    if (volleyArray[i].hits(fighter)) {
       console.log('hit');
-      rainArray[i].kill();
+      volleyArray[i].kill();
       mySound1.play();
       lives--;
     }
     for (var z = walls.length - 1; z >= 0; z--) {
-      if (rainArray[i].hitsWall(walls[z])) {
-        rainArray[i].kill();
+      if (volleyArray[i].hitsWall(walls[z])) {
+        volleyArray[i].kill();
       }
     }
   }
 
-  for (var i = 0; i < rainArray.length; i++) {
-    if (rainArray[i].toggle === true) {
-      rainArray.splice(i, 1);
+  for (var i = 0; i < volleyArray.length; i++) {
+    if (volleyArray[i].toggle === true) {
+      volleyArray.splice(i, 1);
     }
   }
 
-  for (var i = 0; i < walls.length; i++) {
-    walls[i].show();
-  }
+  lives > 0 ? true : alive = false;
 
 }
 
@@ -157,7 +205,7 @@ function keyReleased() {
 }
 
 function keyPressed() {
-
+  if (countdown.count <= 0) {
   switch (keyCode) {
     case LEFT_ARROW:
       fighter.set(-1)
@@ -174,22 +222,26 @@ function keyPressed() {
       mySound.play();
       break;
   }
+  }
 }
 
-function letItRain() {
-  if (enemies.length > 0) {
+function letItVolley() {
+  if (enemies.length > 0 && countdown.count <= 0) {
     var random = parseInt(Math.floor(Math.random() * (enemies.length)));
-    var rain = new Rain(enemies[random].x, enemies[random].y);
-    // console.log(rain);
-    rainArray.push(rain);
+    var volley = new Volley(enemies[random].x, enemies[random].y);
+    // console.log(volley);
+    volleyArray.push(volley);
   }
 }
 
 setInterval(function () {
-  lives > 0 && playing ? letItRain() : false;
-
-}, 500);
+  lives > 0 && playing ? letItVolley() : false;
+}, levels[level - 1].interval);
 
 setInterval(function () {
-  countdown.count > 0 ? countdown.count-- : false;
+  if (countdown.count > 0 && playing) {
+    countdown.count--;
+  } else if (playing) {
+    countdown.view = false;
+  }
 }, 1000);

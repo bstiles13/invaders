@@ -1,4 +1,4 @@
-function Rain(x, y) {
+function Volley(x, y) {
 
     this.x = x;
     this.y = y;
@@ -26,7 +26,7 @@ function Rain(x, y) {
     }
 
     this.hitsWall = function(wall) {
-        var distance = dist(this.x, this.y, wall.x + 90, wall.y + 65);
+        var distance = dist(this.x, this.y, wall.x + 80, wall.y + 65);
         if (distance <= this.radius + 70) {
             return true;
         } else {

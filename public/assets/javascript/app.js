@@ -19,7 +19,7 @@ $(document).ready(function() {
         setInterval(function() {
         if (lives <= 0 && playing) {
             // Store
-            localStorage.setItem("score", score.count);
+            localStorage.setItem("score", score);
             // Retrieve
             newScore = localStorage.getItem("score");
             console.log(newScore);

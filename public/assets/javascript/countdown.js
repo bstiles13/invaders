@@ -1,5 +1,6 @@
 function Countdown() {
 
+    this.view = true;
     this.count = 4;
 
     this.show = function() {

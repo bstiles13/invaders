@@ -1,8 +1,12 @@
-function Score() {
+function Scorebox(count) {
 
-    this.count = 0;
+    this.count = count;
 
     this.show = function() {
         text('Score: ' + this.count, 10, 10, 100, 100);
+    }
+
+    this.updateScore = function(score) {
+        this.count = score;
     }
 }
