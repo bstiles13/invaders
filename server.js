@@ -33,7 +33,7 @@ mongoose.connect(db, function(error) {
 var User = require('./models/user');
 var Score = require('./models/score');
 
-app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
+app.get('/auth/facebook', passport.authenticate('facebook', {authType: 'reauthenticate', scope: ['email']}));
 
 app.get('/auth/facebook/callback', 
   passport.authenticate('facebook', { successRedirect: '/',
