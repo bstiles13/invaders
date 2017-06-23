@@ -166,15 +166,15 @@ passport.use(new FacebookStrategy({
   },
   function(token, refreshToken, profile, done) {
     process.nextTick(function() {
-      User.findOne({ 'facebook.id': profile.id }, function(err, user) {
+      User.findOne({ 'id': profile.id }, function(err, user) {
         if (err)
           return done(err);
         if (user) {
           return done(null, user);
         } else {
           var newUser = new User();
-          // newUser.id = profile.id;
-          // newUser.token = token;
+          newUser.id = profile.id;
+          newUser.token = token;
           newUser.name = profile.name.givenName + ' ' + profile.name.familyName;
           newUser.username = (profile.emails[0].value).split("@", 1);
           newUser.email = (profile.emails[0].value || '').toLowerCase();

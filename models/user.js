@@ -3,8 +3,8 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-        // id: String,
-        // token: String,
+        id: String,
+        token: String,
         email: String,
         name: String,
         username: String,
