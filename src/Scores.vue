@@ -19,6 +19,9 @@
         <li class="collection-columns collection-item">User<span class="secondary-content">Score</span></li>
         <li class="collection-item" v-for="score in friends"><div>{{score.user}}<a href="#!" class="secondary-content">{{score.score}}</a></div></li>
       </ul>
+			<audio autoplay>
+          <source src="./assets/javascript/heroes.mp3" type="audio/mpeg"> Your browser does not support the audio element.
+      </audio>
 	</div>
 </template>
 
