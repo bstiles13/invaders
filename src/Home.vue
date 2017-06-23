@@ -23,7 +23,7 @@
           <li class="collection-item grey darken-3"><a href="/scores" class="see-scores waves-effect waves-light btn blue darken-4">Scores</a></li>
         </ul>
         <audio autoplay>
-          <source src="./assets/javascript/resistance.mp3" type="audio/mpeg"> Your browser does not support the audio element.
+          <source src="./assets/javascript/heroes.mp3" type="audio/mpeg"> Your browser does not support the audio element.
         </audio>
     </div>
 </template>
