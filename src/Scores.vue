@@ -109,12 +109,14 @@ export default {
 	.collection-container {
 		display: flex;
 		align-items: flex-start;
+		justify-content: center;
 		width: 90%;
 		margin: 0 auto;
 	}
 	.collection {
 		flex: 1;
 		margin: 30px 10px;
+		max-width: 50%;
 	}
 	.new-friend {
 		display: flex;
