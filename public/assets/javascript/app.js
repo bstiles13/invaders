@@ -18,7 +18,7 @@ $(document).ready(function() {
         $('#canvas').show();
         playing = true;
         setInterval(function() {
-        if (lives <= 0 && playing) {
+        if (lives <= 0 && playing || level === 11) {
             // Store
             localStorage.setItem("score", score);
             // Retrieve
