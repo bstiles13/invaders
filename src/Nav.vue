@@ -2,6 +2,9 @@
     <div class="navbar-fixed">
       <nav>
         <div class="nav-wrapper grey darken-3">
+            <ul v-show="loggedIn" class="left hide-on-med-and-down">
+                <li>Hello, {{user}}!</li>
+            </ul>
             <a href="/" class="brand-logo center">INVADERS</a>
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
@@ -25,7 +28,8 @@ export default {
   name: 'nav',
   data () {
     return {
-      loggedIn: false
+      loggedIn: false,
+      user: ""
     }
   },
   created () {
@@ -33,15 +37,12 @@ export default {
   },
     methods: {
 		checkLogin() {
-				// this.globals = [{user: 'Bill', score: 100}, {user: 'Tom', score: 50}];
 			var that = this;
-			fetch('/confirm').then(function(response) {
+			fetch("/confirm", { method: "POST", headers: { "Content-Type": "application/json" }, credentials: "same-origin" })
+            .then(function(response) {
 				return response.json();
 			}).then(function(myBlob) {
-                // console.log(myBlob);
-                // console.log(loggedIn);
-                Object.keys(myBlob).length === 0 ? false : that.loggedIn = true;
-				// that.loggedIn = true;
+                Object.keys(myBlob).length === 0 ? false : (that.loggedIn = true, that.user = myBlob.username);
 			});
 		}
 	}

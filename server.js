@@ -1,12 +1,13 @@
 //Dependecies
 var express = require("express");
+var cookieParser = require("cookie-parser");
+var cookieSession = require('cookie-session');
 var bodyParser = require("body-parser");
 var path = require("path");
 var mongoose = require('mongoose');
 var session = require('express-session');
 var passport = require('passport');
-// var axios = require('axios');
-var activeUser = {};
+var FacebookStrategy = require('passport-facebook').Strategy;  
 
 
 //Define server and middleware
@@ -14,8 +15,13 @@ var PORT = process.env.PORT || 8080;
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieParser('foo'));
+app.use(bodyParser());
 app.use(express.static(__dirname + "/public"));
-app.use(session({secret: 'anystringoftext',
+app.use(session({secret: 'foo',
+         cookie: {
+           secure: false
+         },
 				 saveUninitialized: true,
 				 resave: true}));
 app.use(passport.initialize());
@@ -33,14 +39,15 @@ mongoose.connect(db, function(error) {
 var User = require('./models/user');
 var Score = require('./models/score');
 
-app.get('/auth/facebook', passport.authenticate('facebook', {authType: 'reauthenticate', scope: ['email']}));
+// Facebook routes
+app.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email' }));
 
-app.get('/auth/facebook/callback', 
-  passport.authenticate('facebook', { successRedirect: '/',
-                                      failureRedirect: '/fail' }));
+app.get('/auth/facebook/callback', passport.authenticate('facebook', {  
+  successRedirect: '/',
+  failureRedirect: '/fail',
+}));
 
 app.get('/logout', function(req, res) {
-        activeUser = {};
         req.logout(); 
         res.redirect('/');
     });
@@ -50,15 +57,17 @@ app.post('/test', function(req, res) {
   res.send('did something');
 })
 
-app.get("/confirm", function(req, res) {
-  res.json(activeUser);
+app.post("/confirm", function(req, res) {
+  console.log("TEST: " + req.isAuthenticated());
+  console.log("REQ USER: " + req['user']);
+  res.json(req.user);
 });
 
 app.post("/submit", function(req, res) {
-  console.log("ACTIVE USER: " + activeUser);
+  console.log("ACTIVE USER: " + req.user);
   console.log("BODY: " + req.body);
   var score = req.body.score;
-  Score.create({ user: activeUser.username, score: score }, function (err, small) {
+  Score.create({ user: req.user.username, score: score }, function (err, small) {
   if (err) return handleError(err);
     res.json(req.body);
 })
@@ -71,15 +80,16 @@ app.get("/getscores", function(req, res) {
 		});
 });
 
-app.get("/myscores", function(req, res) {
-  Score.find({user: activeUser.username}).sort({ score: -1 }).limit(15).exec(function(err, docs){
-    console.log('MY SCORES: ' + docs);
+app.post("/myscores", function(req, res) {
+  console.log("MY SCORES: " + req.user);
+  Score.find({user: req.user.username}).sort({ score: -1 }).limit(15).exec(function(err, docs){
+    // console.log('MY SCORES: ' + docs);
   	res.json(docs);
 		});
 });
 
-app.get("/myfriends", function(req, res) {
-       User.find({username: activeUser.username}, function(err, data) {
+app.post("/myfriends", function(req, res) {
+       User.find({username: req.user.username}, function(err, data) {
 
           console.log('all: ' + data);
           console.log('username: ' + data[0].username);
@@ -102,8 +112,8 @@ app.post('/addfriend', function(req, res) {
     } else if (docs.length > 0) {
     console.log(docs);
     console.log('find');
-    User.update({username: activeUser.username}, { $push: { friends: req.body.friend}}, function(err, result) {
-       User.find({username: activeUser.username}, function(err, data) {
+    User.update({username: req.user.username}, { $push: { friends: req.body.friend}}, function(err, result) {
+       User.find({username: req.user.username}, function(err, data) {
 
           console.log('all: ' + data);
           console.log('username: ' + data[0].username);
@@ -135,7 +145,6 @@ app.listen(PORT, function() {
 passport.serializeUser(function(user, done){
     if (user) {
       console.log('SERIALIZE: ' + user);
-      activeUser = user;
       done(null, user._id);
     }
 });
@@ -144,48 +153,39 @@ passport.deserializeUser(function(id, done){
   User.findById(id, function(err, user){
     if (user) {
       console.log('DESERIALIZE: ' + user);
-      activeUser = user;
       done(err, user);
     }
   });
 });
 
-var FacebookStrategy = require('passport-facebook').Strategy;
-
-passport.use(new FacebookStrategy({
-		clientID: '464260037255972',
+passport.use(new FacebookStrategy({  
+    clientID: '464260037255972',
 		clientSecret: '916de8fa7a9134e64756620f48f7d00b',
-		callbackURL: 'https://safe-stream-91415.herokuapp.com/auth/facebook/callback',
-    profileFields: ['name', 'email']
+		callbackURL: 'http://localhost:8080/auth/facebook/callback',
+    profileFields: ['id', 'email', 'first_name', 'last_name'],
   },
-  function(accessToken, refreshToken, profile, done) {
-      process.nextTick(function(){
-        User.findOne({'id': profile.id}, function(err, user){
-          if(err)
-            return done(err);
-          if(user) {
-            var existingUser = user;
-            console.log(existingUser);
-            return done(null, user);
-          }
-          else {
-            console.log(profile);
-            var newUser = new User();
-            newUser.id = profile.id;
-            newUser.token = accessToken;
-            newUser.name = profile.name.givenName + ' ' + profile.name.familyName;
-            newUser.email = profile.emails[0].value;
-            newUser.username = profile.emails[0].value.split("@", 1);
+  function(token, refreshToken, profile, done) {
+    process.nextTick(function() {
+      User.findOne({ 'facebook.id': profile.id }, function(err, user) {
+        if (err)
+          return done(err);
+        if (user) {
+          return done(null, user);
+        } else {
+          var newUser = new User();
+          // newUser.id = profile.id;
+          // newUser.token = token;
+          newUser.name = profile.name.givenName + ' ' + profile.name.familyName;
+          newUser.username = (profile.emails[0].value).split("@", 1);
+          newUser.email = (profile.emails[0].value || '').toLowerCase();
+          newUser.friends = [];
 
-            newUser.save(function(err){
-              if(err)
-                throw err;
-              return done(null, newUser);
-            })
-            console.log(profile);
-          }
-        });
+          newUser.save(function(err, result) {
+            if (err)
+              throw err;
+            return done(null, newUser);
+          });
+        }
       });
-    }
-
-));
+    });
+  }));

@@ -44,15 +44,13 @@ export default {
   },
     methods: {
 		checkLogin() {
-				// this.globals = [{user: 'Bill', score: 100}, {user: 'Tom', score: 50}];
 			var that = this;
-			fetch('/confirm').then(function(response) {
+			fetch("/confirm", { method: "POST", headers: { "Content-Type": "application/json" }, credentials: "same-origin" })
+      .then(function(response) {
 				return response.json();
 			}).then(function(myBlob) {
-                // console.log(myBlob);
-                // console.log(loggedIn);
-                Object.keys(myBlob).length === 0 ? false : that.loggedIn = true;
-				// that.loggedIn = true;
+        console.log("HOME CHECK: " + JSON.stringify(myBlob));
+        Object.keys(myBlob).length === 0 ? false : that.loggedIn = true;
 			});
 		},
     checkScore() {
@@ -64,15 +62,8 @@ export default {
     submit() {
       var that = this;
       var latestScore = localStorage.getItem("score");
-      var myHeaders = new Headers();
-      myHeaders.append('Content-Type', 'application/json');
-
-      fetch("/submit", {
-        method: "POST",
-        headers: myHeaders,
-        mode: 'cors',
-        cache: 'default',
-        body: JSON.stringify({ "score": latestScore })
+      fetch("/submit", { method: "POST", headers: { "Content-Type": "application/json" }, credentials: "same-origin", mode: 'cors',
+        cache: 'default', body: JSON.stringify({ "score": latestScore })
       }).then(function(response) {
 				return response.json();
 			}).then(function(myBlob) {
@@ -91,6 +82,9 @@ export default {
       position: absolute;
       margin: 0 auto;
       margin-top: 100px;
+  }
+  .collection-item {
+    text-align: center;
   }
   .collection-item a {
     width: 100;
