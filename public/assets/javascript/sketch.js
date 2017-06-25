@@ -87,7 +87,7 @@ function draw() {
   for (var i = 0; i < stars.length; i++) {
     stars[i].show();
   }
-  enemies.length <= 0 ? (missiles = [], level++, startSetup()) : false;
+  enemies.length <= 0 ? (missiles = [], fires = [], volley = [], level++, startSetup()) : false;
   playing ? drawObjects(drawMovement) : false;
   // countdown.count === 0 ? drawMovement() : false;
   // playing ? startDraw2() : false;
