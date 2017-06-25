@@ -5,6 +5,7 @@ var alive = true;
 var score = 0;
 var missileCooldown = false;
 var missileCount = 0;
+var enemyFire;
 var level = 1;
 var levels = [
   {
@@ -87,7 +88,7 @@ function draw() {
   for (var i = 0; i < stars.length; i++) {
     stars[i].show();
   }
-  enemies.length <= 0 ? (missiles = [], fires = [], volley = [], level++, startSetup()) : false;
+  enemies.length <= 0 ? (missiles = [], fires = [], volley = [], level++, clearInterval(enemyFire), startSetup()) : false;
   playing ? drawObjects(drawMovement) : false;
   // countdown.count === 0 ? drawMovement() : false;
   // playing ? startDraw2() : false;
@@ -118,6 +119,10 @@ function startSetup() {
   for (var i = 0; i < 3; i++) {
     walls[i] = new Wall(i * 240 + 80, height - 200);
   }
+
+  enemyFire = setInterval(function () {
+  lives > 0 && playing ? letItVolley() : false;
+  }, levels[level - 1].interval);
 }
 
 function drawObjects(func) {
@@ -297,9 +302,7 @@ function letItVolley() {
   }
 }
 
-setInterval(function () {
-  lives > 0 && playing ? letItVolley() : false;
-}, levels[level - 1].interval);
+
 
 setInterval(function () {
   if (countdown.count > 0 && playing) {
