@@ -44,8 +44,8 @@ var levels = [
     interval: 200
   },
   {
-    speed: 4,
-    interval: 20
+    speed: 3,
+    interval: 100
   }
 ]
 
