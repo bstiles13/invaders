@@ -56,11 +56,13 @@ var scorebox;
 var img;
 var fighter;
 var volley;
+var fire;
 var stars = [];
 var enemies = [];
 var walls = [];
 var missiles = [];
 var volleyArray = [];
+var fires = [];
 var gameOver = {};
 
 
@@ -69,6 +71,7 @@ function preload() {
   mySound1 = loadSound("./assets/javascript/explode.mp3");
   mySound2 = loadSound("./assets/javascript/r2.mp3");
   mySound3 = loadSound("./assets/javascript/explode1.mp3");
+  mySound4 = loadSound("./assets/javascript/muffled.mp3");
 }
 
 function setup() {
@@ -212,7 +215,10 @@ function drawMovement() {
     }
     for (var z = walls.length - 1; z >= 0; z--) {
       if (volleyArray[i].hitsWall(walls[z])) {
-        walls[z].changeImage();
+        mySound4.play();
+        walls[z].takeDamage();
+        fire = new Fire(walls[z].x, walls[z].y);
+        fires.push(fire);
         volleyArray[i].kill();
       }
     }
@@ -220,6 +226,11 @@ function drawMovement() {
 
   for (var i = 0; i < walls.length; i++) {
     if (walls[i].destroy === true) {
+      for (var z = fires.length - 1; z >= 0; z--) {
+        if (fires[z].proximity(walls[i])) {
+          fires.splice(z, 1);
+        }
+      }
       walls.splice(i, 1);
     }
   }
@@ -228,6 +239,10 @@ function drawMovement() {
     if (volleyArray[i].toggle === true) {
       volleyArray.splice(i, 1);
     }
+  }
+
+  for (var i = 0; i < fires.length; i++) {
+    fires[i].show();
   }
 
   lives > 0 ? true : alive = false;

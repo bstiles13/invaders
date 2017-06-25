@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "webpack -w",
-    "start": "node server.js"
+    "deploy": "gcloud preview app deploy"
   },
   "keywords": [],
   "author": "",
