@@ -1,7 +1,7 @@
 function Fire(x, y) {
 
     this.x = Math.floor(Math.random() * ((x + 120) - (x - 0) + 1)) + (x - 0);
-    this.y = Math.floor(Math.random() * ((y + 20) - (y - 0) + 1)) + (y - 0);
+    this.y = Math.floor(Math.random() * ((y + 27) - (y + 5))) + (y + 5);
     this.width = 40;
     this.height = 20;
     this.img5 = loadImage("./assets/javascript/fire.png"); 
