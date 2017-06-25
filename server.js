@@ -161,7 +161,7 @@ passport.deserializeUser(function(id, done){
 passport.use(new FacebookStrategy({  
     clientID: '464260037255972',
 		clientSecret: '916de8fa7a9134e64756620f48f7d00b',
-		callbackURL: 'https://safe-stream-91415.herokuapp.com/auth/facebook/callback',
+		callbackURL: 'https://invadersredux.herokuapp.com/auth/facebook/callback',
     profileFields: ['id', 'email', 'first_name', 'last_name'],
   },
   function(token, refreshToken, profile, done) {
