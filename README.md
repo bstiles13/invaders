@@ -13,4 +13,4 @@ Levels:
 - Each level triggers more aggressive enemies
 
 Login:<br>
-Click the Sign In button to create an account, track your high scores, and add friends. The app utilizies Passport's Facebook module to authenticate players directly through Facebook. The method is a more secure alternative to creating accounts and passwords on Invaders.
+Click the <b>Sign In</b> button to create an account, track your high scores, and add friends. The app utilizies Passport's Facebook module to authenticate players directly through Facebook. The method is a more secure alternative to creating accounts and passwords on Invaders.
