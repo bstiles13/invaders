@@ -1,7 +1,6 @@
 //Dependecies
 var express = require("express");
 var cookieParser = require("cookie-parser");
-var cookieSession = require('cookie-session');
 var bodyParser = require("body-parser");
 var path = require("path");
 var mongoose = require('mongoose');
