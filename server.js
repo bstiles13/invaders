@@ -1,11 +1,8 @@
 //Dependecies
 var express = require("express");
-var cookieParser = require("cookie-parser");
-var cookieSession = require('cookie-session');
 var bodyParser = require("body-parser");
 var path = require("path");
 var mongoose = require('mongoose');
-var session = require('express-session');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;  
 
@@ -18,12 +15,6 @@ app.use(bodyParser.json());
 app.use(cookieParser('foo'));
 app.use(bodyParser());
 app.use(express.static(__dirname + "/public"));
-app.use(session({secret: 'foo',
-         cookie: {
-           secure: false
-         },
-				 saveUninitialized: true,
-				 resave: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 
