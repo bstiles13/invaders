@@ -29,6 +29,7 @@ app.use('/', routes);
 
 
 //Start MongoDB
+var User = require('../models/user.js');
 var db = process.env.MONGODB_URI || "mongodb://localhost/invaders_db";
 mongoose.connect(db, function (error) {
   if (error) {
