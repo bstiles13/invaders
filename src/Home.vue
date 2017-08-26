@@ -20,7 +20,7 @@
           </li>
           <li v-else class="collection-item grey darken-3"><a href="/auth/facebook" class="waves-effect waves-light btn blue darken-4">Log In & Submit</a></li>          
           <li class="collection-item grey darken-3"><a href='/' class="play again waves-effect waves-light btn blue darken-4">Play Again</a></li>         
-          <li class="collection-item grey darken-3"><a href="/scores" class="see-scores waves-effect waves-light btn blue darken-4">Scores</a></li>
+          <li class="collection-item grey darken-3"><router-link to="/scores" class="see-scores waves-effect waves-light btn blue darken-4">Scores</router-link></li>
         </ul>
         <audio autoplay>
           <source src="./assets/javascript/resistance.mp3" type="audio/mpeg"> Your browser does not support the audio element.

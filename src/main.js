@@ -15,8 +15,8 @@ var routes = [
 ];
 
 var router = new VueRouter({
-  routes: routes,
-  mode: 'history'
+  mode: 'history',
+  routes: routes
 });
 
 Vue.component('app-nav', Nav);

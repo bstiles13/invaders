@@ -8,14 +8,14 @@
             <a href="/" class="brand-logo center">INVADERS</a>
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="/scores">Scores</a></li>
+                <li><router-link to="scores">Scores</router-link></li>
                 <li>
                     <a v-if="loggedIn" href="/logout" class="waves-effect waves-light btn light-blue darken-3"><i class="material-icons left">person</i>Log Out</a>
                     <a v-else href="/auth/facebook" class="waves-effect waves-light btn light-blue darken-3"><i class="material-icons left">person</i>Sign In</a>
                 </li>
             </ul>
             <ul class="side-nav" id="mobile-demo">
-                <li><a href="/scores">Scores</a></li>
+                <li><router-link to="scores">Scores</router-link></li>
                 <li><a href="/login">Sign In</a></li>
             </ul>
         </div>

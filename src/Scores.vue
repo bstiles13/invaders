@@ -3,13 +3,13 @@
       <ul class="collection with-header">
         <li class="collection-header"><h4>Global Scores</h4></li>
         <li class="collection-columns collection-item">User<span class="secondary-content">Score</span></li>
-        <li class="collection-item" v-for="score in globals"><div>{{score.user}}<a href="#!" class="secondary-content">{{score.score}}</a></div></li>
+        <li class="collection-item" v-for="score in globals" v-bind:user="score.user" v-bind:score="score.score" v-bind:key="score.id"><div>{{score.user}}<a href="#!" class="secondary-content">{{score.score}}</a></div></li>
       </ul>
 
 			<ul v-show="loggedIn" class="collection with-header">
         <li class="collection-header"><h4>Your Scores</h4></li>
         <li class="collection-columns collection-item">User<span class="secondary-content">Score</span></li>
-        <li class="collection-item" v-for="score in personals"><div>{{score.user}}<a href="#!" class="secondary-content">{{score.score}}</a></div></li>
+        <li class="collection-item" v-for="score in personals" v-bind:user="score.user" v-bind:score="score.score" v-bind:key="score.id"><div>{{score.user}}<a href="#!" class="secondary-content">{{score.score}}</a></div></li>
       </ul>
 
 			<ul v-show="loggedIn" class="collection with-header">
@@ -17,7 +17,7 @@
 					<h4>Friends<br></h4><br><div class="new-friend"><input v-model="friend" placeholder="Add friend"><button class="grey darken-4" v-on:click="addFriend">Add</button></div>
 				</li>
         <li class="collection-columns collection-item">User<span class="secondary-content">Score</span></li>
-        <li class="collection-item" v-for="score in friends"><div>{{score.user}}<a href="#!" class="secondary-content">{{score.score}}</a></div></li>
+        <li class="collection-item" v-for="score in friends" v-bind:user="score.user" v-bind:score="score.score" v-bind:key="score.id"><div>{{score.user}}<a href="#!" class="secondary-content">{{score.score}}</a></div></li>
       </ul>
 			<audio autoplay>
           <source src="./assets/javascript/heroes.mp3" type="audio/mpeg"> Your browser does not support the audio element.
