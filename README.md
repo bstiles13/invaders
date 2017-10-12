@@ -6,7 +6,7 @@ The enemies attempt to destroy the player's starship by firing at it while they 
 
 ## The game
 
-![game](https://github.com/bstiles13/invaders/blob/master/public/assets/images/screenshots/screenshot_game.png)
+![game](https://github.com/bstiles13/invaders/blob/master/public/assets/screenshots/screenshot_game.png)
 <br/><br/>>
 How to Play:
 - Left and right arrows to move
@@ -24,4 +24,4 @@ Click the <b>Sign In</b> button to create an account, track your high scores, an
 
 See global score leaders, track your personal high scores, and add friends
 
-![scores](https://github.com/bstiles13/invaders/blob/master/public/assets/images/screenshots/screenshot_scores.png)
+![scores](https://github.com/bstiles13/invaders/blob/master/public/assets/screenshots/screenshot_scores.png)
