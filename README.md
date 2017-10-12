@@ -7,12 +7,12 @@ The enemies attempt to destroy the player's starship by firing at it while they 
 ## The game
 
 ![game](https://github.com/bstiles13/invaders/blob/master/public/assets/screenshots/screenshot_game.png)
-<br/><br/>>
-How to Play:
+<br/><br/>
+## How to Play:
 - Left and right arrows to move
 - Spacebar to shoot
 
-Levels:
+## Levels:
 - 10 levels, each consisting of three rows of eleven enemy ships
 - Each level triggers more aggressive enemies
 
