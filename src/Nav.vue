@@ -1,7 +1,7 @@
 <template>
     <div class="navbar-fixed">
       <nav>
-        <div class="nav-wrapper grey darken-3">
+        <div class="nav-wrapper grey darken-4">
             <ul v-show="loggedIn" class="left hide-on-med-and-down">
                 <li>Hello, {{user}}!</li>
             </ul>
