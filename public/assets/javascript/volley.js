@@ -18,7 +18,7 @@ function Volley(x, y) {
     this.hits = function(fighter) {
         var distance = dist(this.x, this.y, fighter.x + fighter.radius, fighter.y + 10);
         if (distance <= fighter.radius + 15) {
-            console.log('hit');
+            // console.log('hit');
             return true;
         } else {
             return false;

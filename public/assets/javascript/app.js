@@ -23,7 +23,7 @@ $(document).ready(function() {
             localStorage.setItem("score", score);
             // Retrieve
             newScore = localStorage.getItem("score");
-            console.log(newScore);
+            // console.log(newScore);
             playing = false;
             $('.results').show();
          };
