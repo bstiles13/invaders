@@ -69,12 +69,12 @@ export default {
 		myScores() {
 			var that = this;
 			if (that.loggedIn) {
-				console.log("LOGGED IN");
+				// console.log("LOGGED IN");
 			fetch("/myscores", { method: "POST", headers: { "Content-Type": "application/json" }, credentials: "same-origin" })
 			.then(function(response) {
 				return response.json();
 			}).then(function(myBlob) {
-        console.log("SCORE CHECK: " + JSON.stringify(myBlob));
+        // console.log("SCORE CHECK: " + JSON.stringify(myBlob));
 				that.personals = myBlob;
 			});
 			}
@@ -86,7 +86,7 @@ export default {
 			.then(function(response) {
 				return response.json();
 			}).then(function(myBlob) {
-				console.log(myBlob);
+				// console.log(myBlob);
 				that.friends = myBlob;
 			});
 			}
@@ -94,7 +94,7 @@ export default {
 		addFriend() {
 			var that = this;
 			if (that.loggedIn) {
-				console.log(that.friend);
+				// console.log(that.friend);
 				fetch("/addfriend", { method: "POST", headers: { "Content-Type": "application/json" }, credentials: "same-origin", mode: 'cors',
 					cache: 'default', body: JSON.stringify({ "friend": that.friend })
 				}).then(function(response) {

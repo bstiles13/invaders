@@ -50,7 +50,7 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
 
 passport.serializeUser(function (user, done) {
   if (user) {
-    console.log('SERIALIZE: ' + user);
+    // console.log('SERIALIZE: ' + user);
     done(null, user._id);
   }
 });
@@ -58,7 +58,7 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (id, done) {
   User.findById(id, function (err, user) {
     if (user) {
-      console.log('DESERIALIZE: ' + user);
+      // console.log('DESERIALIZE: ' + user);
       done(err, user);
     }
   });

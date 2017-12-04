@@ -172,7 +172,6 @@ function drawMovement() {
       edge = true;
     }
     if (enemies[i].hits(fighter)) {
-      console.log('hit');
       lives--;
     }
   }
@@ -222,7 +221,6 @@ function drawMovement() {
     volleyArray[i].show();
     volleyArray[i].move();
     if (volleyArray[i].hits(fighter)) {
-      console.log('hit');
       volleyArray[i].kill();
       lives > 1 ? mySound1.play() : mySound2.play();
       lives--;
@@ -285,7 +283,6 @@ function keyPressed() {
         break;
       case 32:
         if (!missileCooldown) {
-          console.log('yes');
           var missile = new Missile(fighter.x + 0, fighter.y, 1);
           missiles.push(missile);
           var missile = new Missile(fighter.x + 55, fighter.y, -1);
@@ -310,7 +307,6 @@ function letItVolley() {
   if (enemies.length > 0 && countdown.count <= 0) {
     var random = parseInt(Math.floor(Math.random() * (enemies.length)));
     var volley = new Volley(enemies[random].x + enemies[random].radius, enemies[random].y + 5);
-    // console.log(volley);
     volleyArray.push(volley);
   }
 }

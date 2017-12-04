@@ -12,8 +12,8 @@ router.get('/logout', function (req, res) {
 
 // Determines if a user is signed in and, if true, sends the user information to the browser
 router.post("/confirm", function (req, res) {
-  console.log("TEST: " + req.isAuthenticated());
-  console.log("REQ USER: " + req['user']);
+  // console.log("TEST: " + req.isAuthenticated());
+  // console.log("REQ USER: " + req['user']);
   res.json(req.user);
 });
 

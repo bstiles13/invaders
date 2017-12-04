@@ -49,7 +49,7 @@ export default {
       .then(function(response) {
 				return response.json();
 			}).then(function(myBlob) {
-        console.log("HOME CHECK: " + JSON.stringify(myBlob));
+        // console.log("HOME CHECK: " + JSON.stringify(myBlob));
         Object.keys(myBlob).length === 0 ? false : that.loggedIn = true;
 			});
 		},
@@ -67,7 +67,7 @@ export default {
       }).then(function(response) {
 				return response.json();
 			}).then(function(myBlob) {
-        console.log("success");
+        // console.log("success");
         localStorage.setItem("score", 0);
         that.submitted = true;
 			});
