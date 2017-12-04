@@ -10,12 +10,12 @@ function Fighter() {
         image(img1, this.x, this.y, this.radius * 3, this.radius * 3);
     }
 
-    this.set = function (dir) {
-        this.direction = dir;
-    } 
+    // this.set = function (dir) {
+    //     this.direction = dir;
+    // } 
 
-    this.move = function() {
-        this.x += this.direction * 4;
-    }
+    // this.move = function() {
+    //     this.x += this.direction * 4;
+    // }
 }
 

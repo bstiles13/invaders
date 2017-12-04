@@ -5,6 +5,8 @@ var alive = true;
 var score = 0;
 var missileCooldown = false;
 var missileCount = 0;
+var leftPressed = false;
+var rightPressed = false;
 var enemyFire;
 var level = 1;
 var levels = [
@@ -88,7 +90,7 @@ function draw() {
   for (var i = 0; i < stars.length; i++) {
     stars[i].show();
   }
-  enemies.length <= 0 ? (missiles = [], fires = [], volley = [], level++, clearInterval(enemyFire), startSetup()) : false;
+  enemies.length <= 0 ? (missiles = [], fires = [], volley = [], level++ , clearInterval(enemyFire), startSetup()) : false;
   playing ? drawObjects(drawMovement) : false;
   // countdown.count === 0 ? drawMovement() : false;
   // playing ? startDraw2() : false;
@@ -99,7 +101,7 @@ function startSetup() {
   for (var i = 0; i < 100; i++) {
     stars[i] = new Star();
   }
-  
+
   countdown = new Countdown(level);
   fighter = new Fighter();
   scorebox = new Scorebox(score);
@@ -121,7 +123,7 @@ function startSetup() {
   }
 
   enemyFire = setInterval(function () {
-  lives > 0 && playing ? letItVolley() : false;
+    lives > 0 && playing ? letItVolley() : false;
   }, levels[level - 1].interval);
 }
 
@@ -155,7 +157,14 @@ function drawMovement() {
   // image(img, 0, height/2, img.width/2, img.height/2);
   // rect(width/2, height - 20, 20, 20);
 
-  fighter.move();
+  // fighter.move();
+  if (leftPressed) {
+    fighter.x = fighter.x - 4;
+  }
+  
+  if (rightPressed) {
+    fighter.x = fighter.x + 4;
+  }
 
   for (var i = 0; i < enemies.length; i++) {
     enemies[i].move();
@@ -255,41 +264,45 @@ function drawMovement() {
 }
 
 function keyReleased() {
-  if (keyCode != 32) {
-    fighter.set(0);
+  if (keyCode == 37) {
+    leftPressed = false;
   }
-
+  else if (keyCode == 39) {
+    rightPressed = false;
+  }
 }
 
 function keyPressed() {
   if (countdown.count <= 0) {
-  switch (keyCode) {
-    case LEFT_ARROW:
-      fighter.set(-1)
-      break;
-    case 39:
-      fighter.set(1)
-      break;
-    case 32:
-      if (!missileCooldown) {
-        console.log('yes');
-        var missile = new Missile(fighter.x + 0, fighter.y, 1);
-        missiles.push(missile);
-        var missile = new Missile(fighter.x + 55, fighter.y, -1);
-        missiles.push(missile);
-        mySound.play();
-        setTimeout(function() {
+    switch (keyCode) {
+      case 37:
+        leftPressed = true;
+        // fighter.set(-1)
+        break;
+      case 39:
+        rightPressed = true;
+        // fighter.set(1)
+        break;
+      case 32:
+        if (!missileCooldown) {
+          console.log('yes');
           var missile = new Missile(fighter.x + 0, fighter.y, 1);
           missiles.push(missile);
           var missile = new Missile(fighter.x + 55, fighter.y, -1);
           missiles.push(missile);
           mySound.play();
-        }, 150);
+          setTimeout(function () {
+            var missile = new Missile(fighter.x + 0, fighter.y, 1);
+            missiles.push(missile);
+            var missile = new Missile(fighter.x + 55, fighter.y, -1);
+            missiles.push(missile);
+            mySound.play();
+          }, 150);
           missileCooldown = true;
           cooldown();
-      }
-      break;
-  }
+        }
+        break;
+    }
   }
 }
 
@@ -313,7 +326,7 @@ setInterval(function () {
 }, 1000);
 
 function cooldown() {
-  setTimeout(function() {
+  setTimeout(function () {
     missileCooldown = false;
   }, 1000);
 }
